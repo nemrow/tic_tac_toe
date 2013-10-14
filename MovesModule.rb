@@ -1,5 +1,4 @@
 module MovesModule
-
   def user_move
     input_valid = false
     puts "Please enter your move (You are X's)"

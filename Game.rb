@@ -1,7 +1,6 @@
 require_relative 'MovesModule'
 require_relative 'BoardModule'
 
-
 class TicTacToe
 
   include MovesModule
