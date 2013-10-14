@@ -20,6 +20,29 @@ class TicTacToe
     rand() < 0.5 ? 1 : 2
   end
 
+  def begin
+    intro
+    until conclusion = game_over do
+      print_board
+      whose_turn == 2 ? bot_move : user_move
+    end
+    finish_game(conclusion)
+  end
+
+  def inspect_line_for_win(line)
+    ['X','O'].each do |player|
+      return {:conclusion => 'win', :player => player} if line.uniq == [player.to_s]
+    end
+    false
+  end
+
+  def check_for_draw
+    if !@board.map{ |cell, value| value[:val] }.include?(' ')
+      return {:conclusion => 'draw'}
+    end
+    false
+  end
+
   def game_over
     possible_wins.each_with_index do |line, index|
       streak = line.map { |cell| @board[cell][:val] }
@@ -37,15 +60,6 @@ class TicTacToe
     else
       p (conclusion[:player] == 'X' ? "You are the winner!" : "I am the winner!" )
     end
-  end
-
-  def begin
-    intro
-    until conclusion = game_over do
-      print_board
-      whose_turn == 2 ? bot_move : user_move
-    end
-    finish_game(conclusion)
   end
 end
 

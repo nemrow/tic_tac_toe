@@ -1,21 +1,8 @@
 module MovesModule
-  def check_for_draw
-    if !@board.map{ |cell, value| value[:val] }.include?(' ')
-      return {:conclusion => 'draw'}
-    end
-    false
-  end
-
-  def inspect_line_for_win(line)
-    ['X','O'].each do |num|
-      return {:conclusion => 'win', :player => num} if line.uniq == [num.to_s]
-    end
-    false
-  end
 
   def user_move
-    puts "Please enter your move (You are X's)"
     input_valid = false
+    puts "Please enter your move (You are X's)"
     until input_valid do
       cell = gets.chomp
       input_valid = validate_user_input(cell)
