@@ -18,8 +18,7 @@ module MovesModule
   def bot_move
     print_to_board("Here I go")
     sleep(1)
-    return true if check_for_win_move
-    return true if check_for_block_move
+    return true if check_for_win_move || check_for_block_move
     attack_move
   end
 
