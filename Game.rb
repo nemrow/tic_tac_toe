@@ -12,7 +12,7 @@ class TicTacToe
   end
 
   def whose_turn
-    @turn = (@turn == 1 ? 2 : 1) 
+    @turn = (@turn == 1 ? 2 : 1)
   end
 
   def choose_starter
@@ -35,6 +35,14 @@ class TicTacToe
     false
   end
 
+  def game_over
+    winner = check_for_winner
+    return winner if winner
+    draw = check_for_draw
+    return draw if draw
+    false
+  end
+
   def check_for_draw
     if !@board.map{ |cell, value| value[:val] }.include?(' ')
       return {:conclusion => 'draw'}
@@ -42,22 +50,21 @@ class TicTacToe
     false
   end
 
-  def game_over
+  def check_for_winner
     possible_wins.each_with_index do |line, index|
       streak = line.map { |cell| @board[cell][:val] }
       winning_player = inspect_line_for_win(streak)
       return winning_player if winning_player
     end
-    return check_for_draw if check_for_draw
     false
   end
 
   def finish_game(conclusion)
     print_board
     if conclusion[:conclusion] == 'draw'
-      p "It's a draw!"
+      print_to_board("It's a draw!")
     else
-      p (conclusion[:player] == 'X' ? "You are the winner!" : "I am the winner!" )
+      print_to_board((conclusion[:player] == 'X' ? "You are the winner!" : "I am the winner!" ))
     end
   end
 end

@@ -3,14 +3,18 @@ module BoardModule
     board = {}
     ('a'..'c').each_with_index do |letter, index|
       (1..3).each do |number|
-        board["#{letter}#{number}"] = { 
-          :x => index, 
-          :y => (number - 1), 
+        board["#{letter}#{number}"] = {
+          :x => index,
+          :y => (number - 1),
           :val => ' '
         }
       end
     end
     board
+  end
+
+  def print_to_board(text)
+    puts text
   end
 
   def possible_wins

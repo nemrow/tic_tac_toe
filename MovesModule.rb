@@ -1,23 +1,22 @@
 module MovesModule
   def user_move
     input_valid = false
-    puts "Please enter your move (You are X's)"
+    print_to_board("Please enter your move (You are X's)")
     until input_valid do
       cell = gets.chomp
       input_valid = validate_user_input(cell)
-      puts "That is not a valid cell" if !input_valid
+      print_to_board("That is not a valid cell") if !input_valid
     end
     @board[cell][:val] = 'X'
   end
 
   def validate_user_input(cell)
-    return false if !@board.has_key?(cell)
-    return false if @board[cell][:val] != ' '
+    return false if !@board.has_key?(cell) || @board[cell][:val] != ' '
     true
   end
 
   def bot_move
-    puts "Here I go"
+    print_to_board("Here I go")
     sleep(1)
     return true if check_for_win_move
     return true if check_for_block_move
@@ -36,7 +35,7 @@ module MovesModule
   end
 
   def make_bots_kill_move(index)
-    possible_wins[index].each do |cell| 
+    possible_wins[index].each do |cell|
       @board[cell][:val] = 'O' if @board[cell][:val] == ' '
     end
   end
@@ -53,7 +52,7 @@ module MovesModule
   end
 
   def make_bots_block_move(index)
-    possible_wins[index].each do |cell| 
+    possible_wins[index].each do |cell|
       @board[cell][:val] = 'O' if @board[cell][:val] == ' '
     end
   end
@@ -68,7 +67,8 @@ module MovesModule
       possible_wins.each_with_index do |line, index|
         row = line.map { |cell| @board[cell][:val] }
         if row.count("X") == num_set[0] && row.count("O") == num_set[1]
-          return make_bots_attack_move(index)
+          make_bots_attack_move(index)
+          return false
         end
       end
     end
